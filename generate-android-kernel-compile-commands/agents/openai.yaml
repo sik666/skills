@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Kernel Compile DB"
+  short_description: "Generate kernel compile_commands.json"
+  default_prompt: "Use $generate-android-kernel-compile-commands to generate compile_commands.json for this Android kernel tree."

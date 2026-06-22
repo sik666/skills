@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kernel Clangd Troubleshooter"
+  short_description: "Fix clangd issues in kernel trees"
+  default_prompt: "Use $fix-kernel-clangd-issues to diagnose why clangd is not working in this kernel workspace."
