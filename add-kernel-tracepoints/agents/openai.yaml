@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kernel Tracepoints"
+  short_description: "Add and validate Linux kernel tracepoints"
+  default_prompt: "Use $add-kernel-tracepoints to instrument and validate a Linux or Android kernel trace path."
