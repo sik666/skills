@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draw.io MCP 制图"
+  short_description: "用 Draw.io MCP 创建清晰可编辑的技术架构图"
+  default_prompt: "使用 $drawio-mcp-diagram 通过 Draw.io MCP 创建并校验一张清晰的技术架构图。"
