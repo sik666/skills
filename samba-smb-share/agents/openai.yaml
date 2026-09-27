@@ -1,0 +1,7 @@
+interface:
+  display_name: "Samba SMB Share"
+  short_description: "Configure and troubleshoot Linux Samba SMB shares"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#1D4ED8"
+  default_prompt: "Use $samba-smb-share to set up or debug a Samba share for Windows clients."

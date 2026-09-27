@@ -1,0 +1,7 @@
+interface:
+  display_name: "Next AI Draw.io MCP"
+  short_description: "Install and verify the Next AI Draw.io MCP server"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#EA580C"
+  default_prompt: "Use $next-ai-draw-io-mcp to add and verify the draw.io MCP server in Codex."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDF Reader"
+  short_description: "Read PDFs, inspect metadata, and extract text page by page."
+  default_prompt: "Use this skill to inspect PDF structure, extract text, and summarize page-level content when a task references a PDF file."

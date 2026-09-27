@@ -1,0 +1,4 @@
+interface:
+  display_name: "README to LaTeX PDF"
+  short_description: "Convert README markdown into checked LaTeX PDFs"
+  default_prompt: "Use $readme-to-latex-pdf to convert this README.md into a polished PDF with correct Chinese fonts and validated rendering."

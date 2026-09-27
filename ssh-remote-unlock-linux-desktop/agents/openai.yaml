@@ -1,0 +1,4 @@
+interface:
+  display_name: "SSH Remote Unlock Linux Desktop"
+  short_description: "Remotely unlock a Linux GUI session over SSH."
+  default_prompt: "Use $ssh-remote-unlock-linux-desktop to unlock a locked Linux desktop over SSH and disable screen blanking."

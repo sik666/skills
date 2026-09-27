@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix VS Code Remote Codex"
+  short_description: "Repair broken VS Code Server and Codex remote state"
+  default_prompt: "Use $fix-vscode-remote-codex-server to diagnose and repair a user-specific VS Code Remote SSH server and Codex extension failure."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Fix Container Compile Commands for Clangd"
+  short_description: "Rewrite container compile_commands paths for clangd"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#0369A1"
+  default_prompt: "Use $fix-container-compile-commands-for-clangd to rewrite a container-generated compile_commands.json for host-side clangd."

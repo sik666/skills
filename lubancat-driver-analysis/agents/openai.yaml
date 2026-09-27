@@ -1,0 +1,4 @@
+interface:
+  display_name: "LubanCat Driver Analysis"
+  short_description: "LubanCat RK3588 驱动分析与 bring-up 方法"
+  default_prompt: "Use $lubancat-driver-analysis to analyze this LubanCat RK3588 board interface, device tree, and driver stack."

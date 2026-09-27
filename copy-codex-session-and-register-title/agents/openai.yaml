@@ -1,0 +1,7 @@
+interface:
+  display_name: "Copy Codex Session and Register Title"
+  short_description: "Migrate Codex sessions across users and providers"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#15803D"
+  default_prompt: "Use $copy-codex-session-and-register-title to migrate this Codex session to another local user or provider and register it safely."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Codex Sandbox Git Symlink"
+  short_description: "修复 Codex 沙箱与 .git 符号链接越界问题"
+  default_prompt: "Use $fix-codex-sandbox-git-symlink to diagnose why Codex sandboxing fails when a repository uses a .git symlink outside the workspace root."

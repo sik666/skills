@@ -1,0 +1,7 @@
+interface:
+  display_name: "Fix Codex MCP Not Injected"
+  short_description: "Troubleshoot enabled MCP servers missing from sessions"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#B91C1C"
+  default_prompt: "Use $fix-codex-mcp-not-injected to diagnose why an enabled MCP server is not available in the current Codex session."

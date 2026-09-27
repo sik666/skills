@@ -1,0 +1,7 @@
+interface:
+  display_name: "Output Clickable Text File References"
+  short_description: "Format clickable local file references for the client"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#CA8A04"
+  default_prompt: "Use $output-clickable-text-file-references to format local file citations in the clickable style expected by the current client."

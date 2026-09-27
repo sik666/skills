@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Codex Repo Git Sandbox"
+  short_description: "修复 .git 符号链接越界导致的 Codex 沙箱失败"
+  default_prompt: "Use $fix-codex-workspace-root-for-repo-git-symlink to diagnose and fix a Codex sandbox failure caused by a repo-managed tree whose .git points outside the current workspace root."

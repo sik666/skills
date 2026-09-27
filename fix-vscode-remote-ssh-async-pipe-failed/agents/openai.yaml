@@ -1,0 +1,7 @@
+interface:
+  display_name: "Fix VS Code Remote SSH AsyncPipeFailed"
+  short_description: "Repair stale VS Code Remote SSH server state"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#4F46E5"
+  default_prompt: "Use $fix-vscode-remote-ssh-async-pipe-failed to diagnose a VS Code Remote SSH AsyncPipeFailed connection failure."

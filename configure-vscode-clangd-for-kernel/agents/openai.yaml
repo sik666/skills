@@ -1,0 +1,7 @@
+interface:
+  display_name: "Configure VS Code Clangd for Kernel"
+  short_description: "Fix kernel clangd config, logs, and symlink path issues"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#0F4C5C"
+  default_prompt: "Use $configure-vscode-clangd-for-kernel to set up clangd for a Linux kernel tree in VS Code and diagnose broken definition jumps."

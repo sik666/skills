@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Clangd Wrong Compile DB"
+  short_description: "Diagnose wrong clangd compile DB loading"
+  default_prompt: "Use $fix-clangd-wrong-compile-db to diagnose why clangd is loading the wrong compile_commands.json or jumping into a sibling project tree."

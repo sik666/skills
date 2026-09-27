@@ -1,0 +1,4 @@
+interface:
+  display_name: "Information Search"
+  short_description: "Cross-platform research and source collection"
+  default_prompt: "Use $information-search-skill to research a topic across papers, code, media, and community sources."
