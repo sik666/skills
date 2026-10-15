@@ -1,7 +1,7 @@
 interface:
-  display_name: "Markdown Relative Links"
-  short_description: "Generate relative Markdown file links with line anchors"
+  display_name: "Markdown File Links"
+  short_description: "Generate clickable local file-and-line Markdown links"
   icon_small: "./assets/icon-small.svg"
   icon_large: "./assets/icon-large.svg"
   brand_color: "#0F766E"
-  default_prompt: "Use $markdown-relative-links to cite local source files in a Markdown document with relative paths and #L anchors."
+  default_prompt: "Use $markdown-relative-links to cite local source files with clickable absolute-path Markdown links that target exact lines."

@@ -1,31 +1,28 @@
 ---
 name: markdown-relative-links
-description: Generate clickable local file references for Markdown documents using paths relative to the current Markdown file and #L line anchors. Use when Codex needs to write repository notes, code-tracing documents, review records, or design docs that must contain Markdown links like [label](relative/path#L123) instead of chat-style `@path:line` references.
+description: Generate IDE-clickable links inside Markdown files using a path relative to the document and a `#L` line anchor. Not for chat replies.
 ---
 
 # Markdown Relative Links
 
-Generate links relative to the Markdown file being edited, not relative to the workspace root.
+Use this skill only when writing or editing an on-disk Markdown document. Do
+not use it for links emitted in a chat reply.
 
-## Workflow
+## Format
 
-1. Identify the path of the Markdown file being created or edited.
-2. Identify the target file path and target line number.
-3. Compute the relative path from the Markdown file's directory to the target file.
-4. Emit a Markdown link in the form `[label](relative/path#L123)`.
-5. Keep the label short. Prefer `filename:line` unless a longer label improves clarity.
+```md
+[rk3588s-lubancat-4.dts:1331](../../../kernel-6.1/arch/arm64/boot/dts/rockchip/suit/rk3588s-lubancat-4.dts#L1331)
+```
 
 ## Rules
 
-- Always use `#L<line>` anchors.
-- Never assume the workspace root is the base path unless the Markdown file is at the root.
-- Use one link per location when citing multiple files.
-- Use this skill only for Markdown output. If the environment expects chat-style references such as `@path:line`, use the relevant reference-format skill instead.
-
-## Example
-
-If the Markdown file is `docs/trace/uart.md` and the target file is `drivers/tty/serial/8250/8250_dw.c` line `540`, write:
-
-```md
-[8250_dw.c:540](../../drivers/tty/serial/8250/8250_dw.c#L540)
-```
+- Use a path relative to the directory containing the Markdown file, followed
+  by `#L<LINE>`.
+- Verify that the target file exists and the cited line is in range.
+- Use a separate link for each location. A single link targets one line, not a
+  range.
+- Keep each visible label concise and identify the file and line, for example
+  `filename.c:42`.
+- Do not use absolute `:LINE` targets, `file://`, or `vscode://` inside an
+  on-disk Markdown document.
+- Do not wrap the link itself in backticks.

@@ -18,15 +18,22 @@ import sys
 import time
 import uuid
 
+from codex_history_api import api_arguments, select_provider, server_for
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--src-home", type=Path, required=True)
     parser.add_argument("--dst-home", type=Path, required=True)
+    parser.add_argument("--src-codex-home", type=Path, help="override source .codex directory")
+    parser.add_argument("--dst-codex-home", type=Path, help="override destination .codex directory")
     parser.add_argument("--thread-id", required=True, help="source UUID thread ID")
-    parser.add_argument("--target-provider", required=True)
-    parser.add_argument("--title", help="destination display title; source title by default")
+    parser.add_argument("--target-provider", help="default: effective destination provider from config/read")
+    parser.add_argument("--allow-provider-mismatch", action="store_true",
+                        help="allow an intentional import to a provider other than the active one")
+    parser.add_argument("--title", help="destination display title; source name, then title by default")
     parser.add_argument("--apply", action="store_true", help="perform the copy after preview")
+    api_arguments(parser)
     return parser.parse_args()
 
 
@@ -100,7 +107,7 @@ def backup(destination_root: Path, stamp: str) -> Path:
 
 
 def insert_thread(source_db: Path, destination_db: Path, old_id: str, new_id: str, rollout: Path, provider: str, title: str, now: float) -> None:
-    source = sqlite3.connect(source_db)
+    source = sqlite3.connect(f"{source_db.as_uri()}?mode=ro", uri=True)
     source.row_factory = sqlite3.Row
     row = source.execute("select * from threads where id=?", (old_id,)).fetchone()
     source.close()
@@ -161,8 +168,8 @@ def write_index(index: Path, thread_id: str, title: str, now: float) -> None:
 
 def main() -> int:
     args = parse_args()
-    source_root = args.src_home / ".codex"
-    destination_root = args.dst_home / ".codex"
+    source_root = (args.src_codex_home or args.src_home / ".codex").resolve()
+    destination_root = (args.dst_codex_home or args.dst_home / ".codex").resolve()
     source_db = source_root / "state_5.sqlite"
     destination_db = destination_root / "state_5.sqlite"
     for database in (source_db, destination_db):
@@ -175,13 +182,16 @@ def main() -> int:
         item = metadata(file)
         if item.get("id") != args.thread_id or item.get("session_id") != args.thread_id:
             raise SystemExit(f"thread ID mismatch in source metadata: {file}")
-    source = sqlite3.connect(source_db)
+    with server_for(args, destination_root) as server:
+        active_provider = server.provider()
+    target_provider = select_provider(active_provider, args.target_provider, args.allow_provider_mismatch)
+    source = sqlite3.connect(f"{source_db.as_uri()}?mode=ro", uri=True)
     source.row_factory = sqlite3.Row
-    row = source.execute("select title, model_provider from threads where id=?", (args.thread_id,)).fetchone()
+    row = source.execute("select * from threads where id=?", (args.thread_id,)).fetchone()
     source.close()
     if row is None:
         raise SystemExit(f"source threads row not found: {args.thread_id}")
-    title = args.title or row["title"] or args.thread_id
+    title = args.title or dict(row).get("name") or row["title"] or args.thread_id
     new_id = uuid7()
     targets = [destination_path(file, source_root, destination_root, args.thread_id, new_id) for file in files]
     plan = {
@@ -189,7 +199,10 @@ def main() -> int:
         "source_thread_id": args.thread_id,
         "source_provider": row["model_provider"],
         "target_thread_id": new_id,
-        "target_provider": args.target_provider,
+        "target_provider": target_provider,
+        "effective_destination_provider": active_provider,
+        "provider_source": "config/read",
+        "provider_matches_active": target_provider == active_provider,
         "title": title,
         "segments": len(files),
         "source_bytes": sum(file.stat().st_size for file in files),
@@ -206,10 +219,10 @@ def main() -> int:
     db_inserted = False
     try:
         for source_file, target_file in zip(files, targets, strict=True):
-            copy_rollout(source_file, target_file, new_id, args.target_provider)
             created.append(target_file)
+            copy_rollout(source_file, target_file, new_id, target_provider)
         now = time.time()
-        insert_thread(source_db, destination_db, args.thread_id, new_id, targets[-1], args.target_provider, title, now)
+        insert_thread(source_db, destination_db, args.thread_id, new_id, targets[-1], target_provider, title, now)
         db_inserted = True
         write_index(destination_root / "session_index.jsonl", new_id, title, now)
     except Exception:
@@ -223,6 +236,7 @@ def main() -> int:
         raise
     plan["backup"] = str(backup_dir)
     plan["copied_bytes"] = sum(file.stat().st_size for file in created)
+    plan["registration_status"] = "written; API and UI verification still required"
     print(json.dumps(plan, ensure_ascii=False, indent=2))
     return 0
 
@@ -230,6 +244,6 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (OSError, ValueError, sqlite3.Error, json.JSONDecodeError) as error:
+    except (OSError, ValueError, KeyError, sqlite3.Error) as error:
         print(f"error: {error}", file=sys.stderr)
         raise SystemExit(1)
