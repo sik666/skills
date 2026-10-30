@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage C/C++ Clangd"
+  short_description: "Generate and repair clangd compile databases"
+  default_prompt: "Use $manage-cpp-clangd to generate, validate, diagnose, and configure clangd for this C/C++ project."
