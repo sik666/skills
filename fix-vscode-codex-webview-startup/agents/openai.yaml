@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix VS Code Codex Startup"
+  short_description: "Diagnose and repair Codex webview startup hangs"
+  default_prompt: "Use $fix-vscode-codex-webview-startup to diagnose and repair this VS Code Codex UI startup failure."
